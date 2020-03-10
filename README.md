@@ -1,4 +1,4 @@
-# etravel-source
+# etravel
 
 ## Project setup
 ```
