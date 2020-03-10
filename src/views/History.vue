@@ -16,8 +16,6 @@ export default {
 	},
 	methods:{
 		goToHome(){
-			// this.$router.push({path:`/update/${target.id}`});
-			// 上面是路徑表現形式，維護較麻煩 下面是資料表現形式 兩者都可以
 			this.$router.push({name: "Home"});
 		}
 	}
