@@ -86,9 +86,12 @@ export default {
 			};
 
 			// 預訂選項判斷
+			if(this.$refs.bookType.$children[0].isSingle == true){
+				[a.planeTicket.terminalDate,a.planeTicket.terminalTime,a.planeTicket.terminalWeekDay] = ["null","null","null"]
+			}
 			let IdentifyA = Object.values(Object.values(a)[0]).map(function(val){
 				if(typeof(val) == "number"){
-					if(val) return true // 大人小孩至少一名
+					if(val > -1) return true
 					else return false
 				}else{
 					if(val.length > 0) return true
@@ -114,7 +117,6 @@ export default {
 			}else{
 				this.testObj = Object.assign(a,b,c,e)
 			}
-			// console.log(this.testObj);
 
 			axios.post("https://etravel-f011c.firebaseio.com/data.json",this.testObj).then((res) => {
 				this.$store.commit("addContent", res.data)

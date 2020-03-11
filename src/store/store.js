@@ -11,16 +11,13 @@ export default new Vuex.Store({
 	mutations: {
 		setContents(state, data){
 			state.bookInput = data;
-			// console.log(this.state.bookInput);
 		},
 		addContent(state, data){
-			// if(!data) console('data');
 			state.bookInput.push(data);
 		}
 	},
 	actions: {
 		DATA_READ: ((context) => {
-			// console.log('READ',context);
 			return axios.get('https://etravel-f011c.firebaseio.com/data.json').then((res) => {
 				context.commit('setContents', res.data)
 			})

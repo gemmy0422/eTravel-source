@@ -82,7 +82,6 @@ export default {
 	data() {
 		return {
             isSingle: false,
-            
 			planeClasses:['不限艙等', '經濟艙', '豪華經濟艙', '商務艙', '頭等艙'],
 			planeCompanies:['不限航空公司','中華航空','長榮航空','台灣虎航'],
 			book:{
