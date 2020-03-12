@@ -15,21 +15,21 @@
             </div>
             <div class="row">
                 <div class="inputGroup width-half">
-                    <input type="date" value="" v-model="book.rentCar.startDate"/>
+                    <input type="date" v-model="book.rentCar.startDate" @change="verifyDate('start')" placeholder="ex: 2000/01/01"/>
                     <label class="">租車日</label>
                 </div>
                 <div class="inputGroup width-half">
-                    <input type="time" id="input-start-time-rentCar" v-model="book.rentCar.startTime"/>
+                    <input type="time" id="input-start-time-rentCar" v-model="book.rentCar.startTime" placeholder="ex: 12:00"/>
                     <label for="input-start-time-rentCar" class="">租車時間</label>
                 </div>
             </div>
             <div class="row">
                 <div class="inputGroup width-half">
-                    <input type="date" value="" v-model="book.rentCar.endDate"/>
+                    <input type="date" v-model="book.rentCar.endDate" @change="verifyDate('end')" placeholder="ex: 2000/01/01"/>
                     <label class="">還車日</label>
                 </div>
                 <div class="inputGroup width-half">
-                    <input type="time" id="input-end-time-rentCar" v-model="book.rentCar.endTime"/>
+                    <input type="time" id="input-end-time-rentCar" v-model="book.rentCar.endTime" placeholder="ex: 12:00"/>
                     <label for="input-end-time-rentCar" class="">還車時間</label>
                 </div>
             </div>
@@ -86,7 +86,22 @@ export default {
         },
     },
 	methods:{
-
+        verifyDate(val){
+            let nowYear = new Date().getFullYear();
+            let nowMonth = new Date().getMonth()+1;
+            let nowDate = new Date().getDate();
+            let bookDepartureArray = this.book.rentCar.startDate.split('-')
+            let bookTerminalArray = this.book.rentCar.endDate.split('-')
+            if(val == 'start'){
+                if(bookDepartureArray[0] >= nowYear && bookDepartureArray[1] >= nowMonth && bookDepartureArray[2] >= nowDate) return true
+                else alert("租車日錯誤"); this.book.rentCar.startDate = '';
+            }else{
+                if(bookTerminalArray[0] >= nowYear && bookTerminalArray[1] >= nowMonth && bookTerminalArray[2] >= nowDate &&
+                bookTerminalArray[0] >= bookDepartureArray[0] && bookTerminalArray[1] >= bookDepartureArray[1] && bookTerminalArray[2] >= bookDepartureArray[2]
+                ) return true
+                else alert("還車日錯誤"); this.book.rentCar.endDate = '';
+            }
+        }
 	}
 }
 </script>

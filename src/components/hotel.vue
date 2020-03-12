@@ -11,11 +11,11 @@
             </div>
             <div class="row">
                 <div class="inputGroup width-half">
-                    <input type="date" value="" v-model="book.hotel.checkInDate"/>
+                    <input type="date" v-model="book.hotel.checkInDate" @change="verifyDate('start')" placeholder="ex: 2000/01/01"/>
                     <label class="">入住日期</label>
                 </div>
                 <div class="inputGroup width-half">
-                    <input type="date" value="" v-model="book.hotel.checkOutDate"/>
+                    <input type="date" v-model="book.hotel.checkOutDate" @change="verifyDate('end')" placeholder="ex: 2000/01/01"/>
                     <label class="">退房日期</label>
                 </div>
             </div>
@@ -106,7 +106,23 @@ export default {
                         break;
                 }
             }
-		}
+        },
+        verifyDate(val){
+            let nowYear = new Date().getFullYear();
+            let nowMonth = new Date().getMonth()+1;
+            let nowDate = new Date().getDate();
+            let bookDepartureArray = this.book.hotel.checkInDate.split('-')
+            let bookTerminalArray = this.book.hotel.checkOutDate.split('-')
+            if(val == 'start'){
+                if(bookDepartureArray[0] >= nowYear && bookDepartureArray[1] >= nowMonth && bookDepartureArray[2] >= nowDate) return true
+                else alert("入住日錯誤"); this.book.hotel.checkInDate = '';
+            }else{
+                if(bookTerminalArray[0] >= nowYear && bookTerminalArray[1] >= nowMonth && bookTerminalArray[2] >= nowDate &&
+                bookTerminalArray[0] >= bookDepartureArray[0] && bookTerminalArray[1] >= bookDepartureArray[1] && bookTerminalArray[2] >= bookDepartureArray[2]
+                ) return true
+                else alert("退房日錯誤"); this.book.hotel.checkOutDate = '';
+            }
+        }
 	}
 }
 </script>

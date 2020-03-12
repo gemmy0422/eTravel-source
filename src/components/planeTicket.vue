@@ -21,21 +21,21 @@
             </div>
             <div class="row">
                 <div class="inputGroup width-half">
-                    <input type="date" id="input-start-date" v-model="book.planeTicket.departureDate"/>
+                    <input type="date" id="input-start-date" v-model="book.planeTicket.departureDate" @change="verifyDate('start')" placeholder="ex: 2000/01/01"/>
                     <label for="input-start-date">出發日</label>
                 </div>
                 <div class="inputGroup width-half">
-                    <input type="time" id="input-start-time" v-model="book.planeTicket.departureTime"/>
+                    <input type="time" id="input-start-time" v-model="book.planeTicket.departureTime" placeholder="ex: 12:00"/>
                     <label for="input-start-time">出發時間</label>
                 </div>
             </div>
             <div class="row" v-if="!isSingle">
                 <div class="inputGroup width-half">
-                    <input type="date" id="input-back-date" v-model="book.planeTicket.terminalDate"/>
+                    <input type="date" id="input-back-date" v-model="book.planeTicket.terminalDate" @change="verifyDate('end')" placeholder="ex: 2000/01/01"/>
                     <label for="input-back-date">回程日</label>
                 </div>
                 <div class="inputGroup width-half">
-                    <input type="time" id="input-back-time" v-model="book.planeTicket.terminalTime"/>
+                    <input type="time" id="input-back-time" v-model="book.planeTicket.terminalTime" placeholder="ex: 12:00"/>
                     <label for="input-back-time">回程時間</label>
                 </div>
             </div>
@@ -144,7 +144,23 @@ export default {
                         break;
                 }
             }
-		}
+        },
+        verifyDate(val){
+            let nowYear = new Date().getFullYear();
+            let nowMonth = new Date().getMonth()+1;
+            let nowDate = new Date().getDate();
+            let bookDepartureArray = this.book.planeTicket.departureDate.split('-')
+            let bookTerminalArray = this.book.planeTicket.terminalDate.split('-')
+            if(val == 'start'){
+                if(bookDepartureArray[0] >= nowYear && bookDepartureArray[1] >= nowMonth && bookDepartureArray[2] >= nowDate) return true
+                else alert("出發日錯誤"); this.book.planeTicket.departureDate = '';
+            }else{
+                if(bookTerminalArray[0] >= nowYear && bookTerminalArray[1] >= nowMonth && bookTerminalArray[2] >= nowDate &&
+                bookTerminalArray[0] >= bookDepartureArray[0] && bookTerminalArray[1] >= bookDepartureArray[1] && bookTerminalArray[2] >= bookDepartureArray[2]
+                ) return true
+                else alert("回程日錯誤"); this.book.planeTicket.terminalDate = '';
+            }
+        }
     }
 }
 </script>
