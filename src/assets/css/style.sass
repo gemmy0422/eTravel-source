@@ -5,7 +5,7 @@
 
 .header
 	position: fixed
-	top: 0
+	top: calc(0px + env(safe-area-inset-top))
 	left: 0
 	width: 100%
 	height: 60px
@@ -38,7 +38,7 @@
 		transform: translateX(10px)
 .tabsGroup
 	position: fixed
-	top: 60px
+	top: calc(60px + env(safe-area-inset-top))
 	left: 0
 	display: inline-flex
 	justify-content: space-around
@@ -61,7 +61,7 @@
 		transition: 0.2s all
 		z-index: -1
 	&.scroll
-		top: 0
+		top: calc(0px + env(safe-area-inset-top))
 		height: 60px
 		&::before
 			top: 0
