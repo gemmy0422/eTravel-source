@@ -11,11 +11,11 @@
             </div>
             <div class="row">
                 <div class="inputGroup width-half">
-                    <input type="date" v-model="book.hotel.checkInDate" @change="verifyDate('start')" placeholder="ex: 2000/01/01"/>
+                    <input type="date" v-model="book.hotel.checkInDate" @change="verifyDate('start')" placeholder="ex: 2000-01-01"/>
                     <label class="">入住日期</label>
                 </div>
                 <div class="inputGroup width-half">
-                    <input type="date" v-model="book.hotel.checkOutDate" @change="verifyDate('end')" placeholder="ex: 2000/01/01"/>
+                    <input type="date" v-model="book.hotel.checkOutDate" @change="verifyDate('end')" placeholder="ex: 2000-01-01"/>
                     <label class="">退房日期</label>
                 </div>
             </div>
@@ -111,16 +111,32 @@ export default {
             let nowYear = new Date().getFullYear();
             let nowMonth = new Date().getMonth()+1;
             let nowDate = new Date().getDate();
-            let bookDepartureArray = this.book.hotel.checkInDate.split('-')
-            let bookTerminalArray = this.book.hotel.checkOutDate.split('-')
+            let bookCheckInArray = this.book.hotel.checkInDate.split('-')
+            let bookCheckOutArray = this.book.hotel.checkOutDate.split('-')
             if(val == 'start'){
-                if(bookDepartureArray[0] >= nowYear && bookDepartureArray[1] >= nowMonth && bookDepartureArray[2] >= nowDate) return true
-                else alert("入住日錯誤"); this.book.hotel.checkInDate = '';
+                if(bookCheckInArray[0] == nowYear){
+                    if(bookCheckInArray[1] == nowMonth){
+                        if(bookCheckInArray[2] >= nowDate) return true
+                        else alert("入住日錯誤"); this.book.hotel.checkInDate = '';
+                        return true
+                    }else if(bookCheckInArray[1] > nowMonth){
+                        return true
+                    }else alert("入住日錯誤"); this.book.hotel.checkInDate = '';
+                }else if(bookCheckInArray[0] > nowYear){
+                    return true
+                }else alert("入住日錯誤"); this.book.hotel.checkInDate = '';
             }else{
-                if(bookTerminalArray[0] >= nowYear && bookTerminalArray[1] >= nowMonth && bookTerminalArray[2] >= nowDate &&
-                bookTerminalArray[0] >= bookDepartureArray[0] && bookTerminalArray[1] >= bookDepartureArray[1] && bookTerminalArray[2] >= bookDepartureArray[2]
-                ) return true
-                else alert("退房日錯誤"); this.book.hotel.checkOutDate = '';
+                if(bookCheckOutArray[0] == bookCheckInArray[0]){
+                    if(bookCheckOutArray[1] == bookCheckInArray[1]){
+                        if(bookCheckOutArray[2] >= bookCheckInArray[2]) return true
+                        else alert("退房日錯誤"); this.book.hotel.checkOutDate = '';
+                        return true
+                    }else if(bookCheckOutArray[1] > bookCheckInArray[1]){
+                        return true
+                    }else alert("退房日錯誤"); this.book.hotel.checkOutDate = '';
+                }else if(bookCheckOutArray[0] > bookCheckInArray[0]){
+                    return true
+                }else alert("退房日錯誤"); this.book.hotel.checkOutDate = '';
             }
         }
 	}

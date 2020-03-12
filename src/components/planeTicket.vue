@@ -21,7 +21,7 @@
             </div>
             <div class="row">
                 <div class="inputGroup width-half">
-                    <input type="date" id="input-start-date" v-model="book.planeTicket.departureDate" @change="verifyDate('start')" placeholder="ex: 2000/01/01"/>
+                    <input type="date" id="input-start-date" v-model="book.planeTicket.departureDate" @change="verifyDate('start')" placeholder="ex: 2000-01-01"/>
                     <label for="input-start-date">出發日</label>
                 </div>
                 <div class="inputGroup width-half">
@@ -31,7 +31,7 @@
             </div>
             <div class="row" v-if="!isSingle">
                 <div class="inputGroup width-half">
-                    <input type="date" id="input-back-date" v-model="book.planeTicket.terminalDate" @change="verifyDate('end')" placeholder="ex: 2000/01/01"/>
+                    <input type="date" id="input-back-date" v-model="book.planeTicket.terminalDate" @change="verifyDate('end')" placeholder="ex: 2000-01-01"/>
                     <label for="input-back-date">回程日</label>
                 </div>
                 <div class="inputGroup width-half">
@@ -152,13 +152,29 @@ export default {
             let bookDepartureArray = this.book.planeTicket.departureDate.split('-')
             let bookTerminalArray = this.book.planeTicket.terminalDate.split('-')
             if(val == 'start'){
-                if(bookDepartureArray[0] >= nowYear && bookDepartureArray[1] >= nowMonth && bookDepartureArray[2] >= nowDate) return true
-                else alert("出發日錯誤"); this.book.planeTicket.departureDate = '';
+                if(bookDepartureArray[0] == nowYear){
+                    if(bookDepartureArray[1] == nowMonth){
+                        if(bookDepartureArray[2] >= nowDate) return true
+                        else alert("出發日錯誤"); this.book.planeTicket.departureDate = '';
+                        return true
+                    }else if(bookDepartureArray[1] > nowMonth){
+                        return true
+                    }else alert("出發日錯誤"); this.book.planeTicket.departureDate = '';
+                }else if(bookDepartureArray[0] > nowYear){
+                    return true
+                }else alert("出發日錯誤"); this.book.planeTicket.departureDate = '';
             }else{
-                if(bookTerminalArray[0] >= nowYear && bookTerminalArray[1] >= nowMonth && bookTerminalArray[2] >= nowDate &&
-                bookTerminalArray[0] >= bookDepartureArray[0] && bookTerminalArray[1] >= bookDepartureArray[1] && bookTerminalArray[2] >= bookDepartureArray[2]
-                ) return true
-                else alert("回程日錯誤"); this.book.planeTicket.terminalDate = '';
+                if(bookTerminalArray[0] == bookDepartureArray[0]){
+                    if(bookTerminalArray[1] == bookDepartureArray[1]){
+                        if(bookTerminalArray[2] >= bookDepartureArray[2]) return true
+                        else alert("回程日錯誤"); this.book.planeTicket.terminalDate = '';
+                        return true
+                    }else if(bookTerminalArray[1] > bookDepartureArray[1]){
+                        return true
+                    }else alert("回程日錯誤"); this.book.planeTicket.terminalDate = '';
+                }else if(bookTerminalArray[0] > bookDepartureArray[0]){
+                    return true
+                }else alert("回程日錯誤"); this.book.planeTicket.terminalDate = '';
             }
         }
     }
