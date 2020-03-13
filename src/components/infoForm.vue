@@ -5,8 +5,8 @@
 			<img :src="imgScrollDown" alt="scrollDown">
 			<hr>
 		</div>
-		<div class="row-md">
-			<div class="listGroup_bg col-md-6" id="idSection">
+		<div class="pd-md-12 row-lg">
+			<div class="listGroup_bg col-lg-6" id="idSection">
 				<div class="listGroup" style="height: 40px;">
 					<span>訂單聯絡人</span>
 				</div>
@@ -30,7 +30,7 @@
 				</div>
 				<guestInfo></guestInfo>
 			</div> -->
-			<div class="listGroup_bg col-md-5">
+			<div class="listGroup_bg col-lg-5">
 				<div class="listGroup" style="height: 40px;">
 					<span>其他需求</span>
 				</div>
