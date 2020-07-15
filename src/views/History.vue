@@ -1,23 +1,18 @@
 <template>
-	<div class="">
-		<history_header></history_header>
-		<history_content></history_content>
+	<div>
+		<historyHeader></historyHeader>
+		<historyContent></historyContent>
 	</div>
 </template>
 
 <script>
-import history_header from '../components/history_header'
-import history_content from '../components/history_content'
+import historyHeader from "../components/history_header";
+import historyContent from "../components/history_content";
 
 export default {
-	components:{
-		history_header,
-		history_content
-	},
-	methods:{
-		goToHome(){
-			this.$router.push({name: "Home"});
-		}
+	components: {
+		historyHeader,
+		historyContent
 	}
-}
+};
 </script>

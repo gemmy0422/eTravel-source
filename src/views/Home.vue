@@ -38,7 +38,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import infoForm from '../components/infoForm'
 import bookType from '../components/bookType'
 import axios from 'axios'
@@ -51,22 +50,21 @@ export default {
 	},
 	data(){
 		return{
-			imgGoToHistory: require('../assets/images/arrow-right-white.png'),
-			imgPlane: require('../assets/images/airplane.svg'),
-			imgHotel: require('../assets/images/bed.svg'),
-			imgRentCar: require('../assets/images/car.svg'),
+			imgGoToHistory: require('@/assets/images/arrow-right-white.png'),
+			imgPlane: require('@/assets/images/airplane.svg'),
+			imgHotel: require('@/assets/images/bed.svg'),
+			imgRentCar: require('@/assets/images/car.svg'),
 
 			componentType: 'planeTicket',
 			positionY: 0,
-			// count: 0,
 			testObj: {}
 		}
 	},
 	methods:{
 		confirmSend(){
-			let a = this.$refs.bookType.$children[0].book;
-			let b = this.$refs.infoForm.mainContact;
-			let c = this.$refs.infoForm.note;
+			let book = this.$refs.bookType.$children[0].book;
+			let mainContact = this.$refs.infoForm.mainContact;
+			let note = this.$refs.infoForm.note;
 			// let d = function(){ // 選租車需隱藏
 			// 	this.componentType == 'rentCar'? false : this.$refs.infoForm.$children[0].guestInfo
 			// };
@@ -77,8 +75,7 @@ export default {
 				else if(randomNum == 1) return '處理中'
 				else return '已處理'
 			}
-			let e = {
-				// id: this.count,
+			let date = {
 				toggleItem: false,
 				bookNumber: frontWord + Math.floor(Math.random()*10000),
 				bookDate: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDate()}`,
@@ -86,21 +83,24 @@ export default {
 			};
 
 			// 預訂選項判斷
-			let IdentifyA = Object.values(Object.values(a)[0]).map(function(val){
+			if(this.$refs.bookType.$children[0].isSingle == true){
+				[book.planeTicket.terminalDate, book.planeTicket.terminalTime, book.planeTicket.terminalWeekDay] = ["null","null","null"]
+			}
+			let IdentifyA = Object.values(Object.values(book)[0]).map(function(val){
 				if(typeof(val) == "number"){
-					if(val) return true // 大人小孩至少一名
-					else return false
+					if(val > -1) return true
+					else return
 				}else{
 					if(val.length > 0) return true
-					else return false
+					else return
 				}
 			}).every(val => val == true);
 
 			// 聯絡人資料判斷
-			let IdentifyB = Object.values(b).every(val => val.length > 0);
+			let IdentifyB = Object.values(mainContact).every(val => val.length > 0);
 
 			// 備註修正
-			c.content.length > 0?c.content: c.content = "無"
+			note.content.length > 0 ? note.content : note.content = "無"
 
 			if(!IdentifyA && !IdentifyB){
 				alert("預訂選項及聯絡人資料未填寫正確");
@@ -112,9 +112,8 @@ export default {
 				alert("聯絡人資料未填寫正確");
 				return false;
 			}else{
-				this.testObj = Object.assign(a,b,c,e)
+				this.testObj = Object.assign(book,mainContact,note,date)
 			}
-			// console.log(this.testObj);
 
 			axios.post("https://etravel-f011c.firebaseio.com/data.json",this.testObj).then((res) => {
 				this.$store.commit("addContent", res.data)
@@ -137,6 +136,9 @@ export default {
 				this.positionY = false
 			}
 		});
+	},
+	beforeDestroy(){
+		window.removeEventListener('scroll')
 	}
 }
 </script>

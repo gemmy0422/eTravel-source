@@ -20,18 +20,9 @@ body
 	text-align: center
 .fz-0
 	font-size: 0 !important
-.fz-12
-	font-size: 12px !important
-.fz-14
-	font-size: 14px !important
-.fz-18
-	font-size: 18px !important
-.fz-20
-	font-size: 20px !important
-.fz-22
-	font-size: 22px !important
-.fz-24
-	font-size: 24px !important
+@for $i from 6 through 12
+	.fz-#{$i * 2}
+		font-size: 2px * $i !important
 .op-60
 	opacity: 0.6 !important
 .fw-bold

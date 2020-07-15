@@ -46,7 +46,7 @@
                                     <p><span class="fz-20 text-primary">{{ history.planeTicket.departureDate }}</span><span class="text-primary">{{ history.planeTicket.departureWeekDay }}</span></p>
                                     <p><span class="fz-20 text-primary">{{ history.planeTicket.departureTime }}</span></p>
                                 </div>
-                                <div class="col-6 ta-right">
+                                <div class="col-6 ta-right" v-if="history.planeTicket.terminalDate !== 'null'">
                                     <p><span class="fz-12 text-secondary">回程日</span></p>
                                     <p><span class="fz-20 text-primary">{{ history.planeTicket.terminalDate }}</span><span class="text-primary">{{ history.planeTicket.terminalWeekDay }}</span></p>
                                     <p><span class="fz-20 text-primary">{{ history.planeTicket.terminalTime }}</span></p>
@@ -270,7 +270,6 @@ export default {
             if(!let_bookInput) return false;
             let destructBookInput = Object.values(let_bookInput);
 
-            // return console.log(destructBookInput,destructBookInput.map(item => item.rentCar));
             let planeTicket = destructBookInput.filter(item => {
                 return item.planeTicket !== undefined
             });

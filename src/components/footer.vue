@@ -1,13 +1,13 @@
 <template>
     <div class="footer ta-center">
-        <div class="row ta-left">
-            <div class="col-12 col-md-3 xs-mb-30" @click="notice">
+        <div class="row ta-left row-md">
+            <div class="col-12 col-lg-3 col-md-4 xs-mb-30" @click="notice">
                 <p class="fz-18 fw-bold pb-8">Intro</p>
                 <p class="fz-14 footer_title">關於eTravel</p>
                 <p class="fz-14 footer_title">條款宣告</p>
                 <p class="fz-14 footer_title">相關網站</p>
             </div>
-            <div class="col-12 col-md-5 xs-mb-30">
+            <div class="col-12 col-lg-5 col-md-4 xs-mb-30">
                 <p class="fz-18 fw-bold pb-8">Contact</p>
                 <div class="mb-12">
                     <p class="fz-12 op-60">Email</p>
@@ -22,7 +22,7 @@
                     <a href="https://www.google.com/maps/" target="_blank" class="fz-14">SomeWhere, I 15665, 8434 don't know</a>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-lg-4 col-md-4">
                 <p class="fz-18 fw-bold">Follow us</p>
                 <div class="row">
                     <div class="ta-center col-3">
@@ -56,10 +56,10 @@
 export default {
     data(){
         return{
-            imgFB: require('../assets/images/facebook.svg'),
-            imgYT: require('../assets/images/youtube.svg'),
-            imgLine: require('../assets/images/line.svg'),
-            imgTelegram: require('../assets/images/telegram.svg')
+            imgFB: require('@/assets/images/facebook.svg'),
+            imgYT: require('@/assets/images/youtube.svg'),
+            imgLine: require('@/assets/images/line.svg'),
+            imgTelegram: require('@/assets/images/telegram.svg')
         }
     },
     methods:{

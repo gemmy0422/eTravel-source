@@ -1,5 +1,3 @@
-// Vuex
-
 <template>
 	<div>
 		<div class="header_goToHistory">
@@ -199,10 +197,10 @@ export default {
 	},
 	data() {
 		return {
-			imgGoToHistory: require('../assets/images_booking/arrow-right-white.png'),
-			imgPlane: require('../assets/images_booking/airplane.svg'),
-			imgHotel: require('../assets/images_booking/bed.svg'),
-			imgRentCar: require('../assets/images_booking/car.svg'),
+			imgGoToHistory: require('@/assets/images_booking/arrow-right-white.png'),
+			imgPlane: require('@/assets/images_booking/airplane.svg'),
+			imgHotel: require('@/assets/images_booking/bed.svg'),
+			imgRentCar: require('@/assets/images_booking/car.svg'),
 			isSingle: false,
 			componentType: 'planeTicket',
 			positionY: 0,
@@ -289,8 +287,6 @@ export default {
             }
 		},
 		goToHistory(){
-			// this.$router.push({path:`/update/${target.id}`});
-			// 上面是路徑表現形式，維護較麻煩 下面是資料表現形式 兩者都可以
 			this.$router.push({name: "History"});
 		}
 	},
@@ -303,6 +299,9 @@ export default {
 				this.positionY = false
 			}
 		});
+	},
+	beforeDestroy(){
+		window.removeEventListener('scroll')
 	}
 }
 </script>
